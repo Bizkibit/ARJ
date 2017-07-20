@@ -62,6 +62,7 @@ approved_organizations.each do |o|
                         detail: Faker::Lorem.paragraph
                       )
   end
+
   rand(1..3).times do
     Event.create({    start_date: Time.now + rand(0..60).days,
       end_date: Time.now + rand(2..6).months,
@@ -69,11 +70,15 @@ approved_organizations.each do |o|
       organization: o,
       details: Faker::Lorem.paragraph})
   end
+
+  rand(1..4).times do
+    Review.create(  body: Faker::Lorem.paragraph,
+                    rating: rand(0..5),
+                    organization: o,
+                    user: o.approved_applications.sample&.user
+    )
+  end
 end
-
-events = Event.all
-
-
 
 
 puts 'Done!'

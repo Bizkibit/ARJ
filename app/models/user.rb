@@ -9,6 +9,8 @@ class User < ApplicationRecord
   has_many :attendances
   has_many :attending_event, through: :attendances, source: :event
 
+  has_many :reviews, dependent: :nullify
+
   validates :first_name, presence: true
   validates :last_name, presence: true
 

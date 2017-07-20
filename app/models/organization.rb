@@ -7,6 +7,8 @@ class Organization < ApplicationRecord
 
   has_many :events, dependent: :destroy
 
+  has_many :reviews, dependent: :destroy
+
   validates :name, presence: true
   validates :address, presence: true
 
@@ -29,5 +31,9 @@ class Organization < ApplicationRecord
 
   end
 
+
+  def approved_applications
+    self.applications.where(aasm_state: 'approved')
+  end
 
 end
