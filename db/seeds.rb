@@ -80,5 +80,15 @@ approved_organizations.each do |o|
   end
 end
 
+# Admin
+
+User.create(  first_name: 'Farshid',
+              last_name: 'HM',
+              email: 'admin@admin.com',
+              username: 'bizkibit',
+              bio: 'Something Something',
+              is_admin: true,
+              password: 'pass123'
+            )
 
 puts 'Done!'
