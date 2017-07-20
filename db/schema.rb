@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170720035900) do
+ActiveRecord::Schema.define(version: 20170720050720) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,19 @@ ActiveRecord::Schema.define(version: 20170720035900) do
     t.datetime "updated_at", null: false
     t.index ["organization_id"], name: "index_applications_on_organization_id"
     t.index ["user_id"], name: "index_applications_on_user_id"
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.date "start_date"
+    t.date "end_date"
+    t.time "start_time"
+    t.time "end_time"
+    t.integer "spots"
+    t.text "details"
+    t.bigint "organization_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["organization_id"], name: "index_events_on_organization_id"
   end
 
   create_table "organizations", force: :cascade do |t|
@@ -60,5 +73,6 @@ ActiveRecord::Schema.define(version: 20170720035900) do
 
   add_foreign_key "applications", "organizations"
   add_foreign_key "applications", "users"
+  add_foreign_key "events", "organizations"
   add_foreign_key "organizations", "users"
 end

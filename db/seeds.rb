@@ -6,12 +6,13 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+Event.destroy_all
 Application.destroy_all
 Organization.destroy_all
 User.destroy_all
 
 
-7.times do
+19.times do
   User.create({ first_name: Faker::Name.first_name,
                 last_name: Faker::Name.last_name,
                 username: Faker::Internet.user_name,
@@ -54,15 +55,21 @@ organizations = Organization.all
 approved_organizations = Organization.where(aasm_state: 'approved')
 
 approved_organizations.each do |o|
-  rand(1..3).times do
+  rand(1..5).times do
     Application.create( user: users.sample,
                         organization: o,
                         aasm_state: ['pending','approved'].sample,
                         detail: Faker::Lorem.paragraph
                       )
   end
+  rand(1..3).times do
+    Event.create({    start_date: Time.now + rand(0..60).days,
+      end_date: Time.now + rand(2..6).months,
+      spots: rand(4..10),
+      organization: o,
+      details: Faker::Lorem.paragraph})
+  end
 end
-
 
 
 
