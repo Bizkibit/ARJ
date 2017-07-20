@@ -6,6 +6,9 @@ class User < ApplicationRecord
   has_many :applications, dependent: :destroy
   has_many :memberships, through: :applications, source: :organization
 
+  has_many :attendances
+  has_many :attending_event, through: :attendances, source: :event
+
   validates :first_name, presence: true
   validates :last_name, presence: true
 

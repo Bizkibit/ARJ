@@ -71,6 +71,9 @@ approved_organizations.each do |o|
   end
 end
 
+events = Event.all
+
+
 
 
 puts 'Done!'
