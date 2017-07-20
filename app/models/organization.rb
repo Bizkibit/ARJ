@@ -8,6 +8,9 @@ class Organization < ApplicationRecord
   validates :name, presence: true
   validates :address, presence: true
 
+  geocoded_by :address
+  after_validation :geocode
+  
   include AASM
 
   aasm whiney_transitions: false do

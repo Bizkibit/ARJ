@@ -4,7 +4,7 @@ class User < ApplicationRecord
   has_many :organizations
 
   has_many :applications, dependent: :destroy
-  has_many :memberships, through: :applications, source: :user
+  has_many :memberships, through: :applications, source: :organization
 
   validates :first_name, presence: true
   validates :last_name, presence: true
