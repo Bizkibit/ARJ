@@ -2,6 +2,10 @@ class User < ApplicationRecord
   has_secure_password
 
   has_many :organizations
+
+  has_many :applications, dependent: :destroy
+  has_many :memberships, through: :applications, source: :user
+
   validates :first_name, presence: true
   validates :last_name, presence: true
 
