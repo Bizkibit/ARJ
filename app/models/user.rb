@@ -7,14 +7,14 @@ class User < ApplicationRecord
   has_many :memberships, through: :applications, source: :organization
 
   has_many :attendances
-  has_many :attending_event, through: :attendances, source: :event
+  has_many :attending_events, through: :attendances, source: :event
 
   has_many :reviews, dependent: :nullify
 
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :username, uniqueness: true
-  
+
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
   validates :email, presence: true,
                     uniqueness: { case_sensitive: false },

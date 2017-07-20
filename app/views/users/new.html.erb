@@ -1,2 +1,18 @@
-<h1>Users#new</h1>
-<p>Find me in app/views/users/new.html.erb</p>
+<div class="container">
+  <h1>Sign Up</h1>
+
+  <%= simple_form_for @user do |f| %>
+    <%= f.input :first_name %>
+    <%= f.input :last_name %>
+    <%= f.input :email %>
+    <%= f.input :username %>
+    <%= f.input :dob, label:'Date of birth', as: :date, start_year: Date.today.year - 90,
+                              end_year: Date.today.year - 12, discard_day: true,
+                              order: [:month, :year] %>
+    <%= f.input :picture %>
+    <%= f.input :bio %>
+    <%= f.input :password %>
+    <%= f.input :password_confirmation %>
+    <%= f.submit({class: "btn btn-primary"}) %>
+  <% end %>
+</div>

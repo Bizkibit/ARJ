@@ -1,2 +1,85 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+
+<div class="container-fluid">
+  <!-- Menu on the left -->
+  <div class="col-lg-2">
+    <div class="row">
+      <ul class="nav nav-pills nav-stacked">
+        <li><a href="#">Menu 1</a></li>
+        <li><a href="#">Menu 2</a></li>
+        <li><a href="#">Menu 3</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="col-lg-2 col-lg-offset-1">
+    <div class="row">
+
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <%# image_tag @user.picture.url(:medium), class:'img-rounded', alt:"Cinque Terre", style: 'min-width:100%; min-height:100%; width:auto; height:auto;' if @user.picture.present? %>
+            </div>
+          </div>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <%= link_to 'Edit profile', edit_user_path(@user)%>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Memberships
+        </div>
+        <div class="panel-body">
+            <% @user.memberships.each do |um| %>
+            <p><%=link_to um.name, organization_path(um) %></p>
+            <% end %>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="col-lg-5">
+    <div class="panel panel-default">
+      <div class="panel-body">
+            <h2><%= @user.full_name %></h2>
+            <hr>
+            <p><strong>Bio: </strong> <%= @user.bio %></p>
+            <p><strong>Age: </strong><%= Time.now.year-@user.dob.year %></p>
+            <hr>
+            <p><strong>Member since: </strong> <%= @user.created_at.strftime("%b %Y") %></p>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-5">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <p><strong>Upcoming Events</strong></p>
+        <hr>
+        <table class='table'>
+          <thead>
+            <tr>
+              <th>Organization</th>
+              <th>Date</th>
+              <th>Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @user.attending_events.each do |event| %>
+            <tr>
+              <td><%=link_to event.organization.name, organization_path(event.organization) %></td>
+              <td><%= event.start_date.to_date %></td>
+              <td><%= event.start_time %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
