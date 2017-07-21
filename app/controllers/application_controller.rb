@@ -14,9 +14,15 @@ class ApplicationController < ActionController::Base
   end
   helper_method :current_user
 
+  # def current_organization_application(organization_id)
+  #   current_user.applications.find_by(organization_id: organization_id)
+  # end
+  # helper_method :current_user_organization
+
   def authenticate_user!
     if !user_signed_in?
       redirect_to new_session_path, notice: 'Please sign in!'
     end
   end
+
 end

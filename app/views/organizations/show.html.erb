@@ -1,2 +1,108 @@
-<h1>Organizations#show</h1>
-<p>Find me in app/views/organizations/show.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="row">
+        <h1>Organization: <%= @organization.name %></h1>
+        <p><strong>Review: </strong><%= @org_rating%></p>
+        <p><strong>Address: </strong><%= @organization.address %></p>
+        <p><strong>Website: </strong><a href="http://<%= @organization.website%>"><%= @organization.website %></a></p>
+        <% if current_application.present? %>
+          <p><strong>Membership status: </strong><%= current_application.aasm_state %></p>
+        <% else %>
+          <p><strong>Membership status: </strong>Not applied yet</p>
+        <% end %>
+      </div>
+      <div class="row">
+        <h2>Event</h2>
+        <% if @events.present? %>
+          <% @events.each_with_index do |event, k| %>
+            <iv class="well well-lg">
+              <p><strong>Start date: </strong><%= event.start_date.to_date %></p>
+              <p><strong>End date: </strong><%= event.end_date.to_date %></p>
+              <p><strong>available spots: </strong><%= event.spots_left %></p>
+              <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#myModal<%="#{k}" %>">More info
+              </button>
+              <div class="modal fade" id="myModal<%="#{k}" %>" role="dialog">
+                <div class="modal-dialog">
+                  <!-- Modal content-->
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title">Details</h4>
+                    </div>
+                    <div class="modal-body">
+                      <p><%= event.details%></p>
+                      <p><%= link_to 'Event page', organization_event_path(@organization, event) %></p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+        <% if  @organization.user == current_user %>
+          <%= link_to 'Add new Event', new_organization_event_path(@organization) %>
+        <% end %>
+      </div>
+      <hr>
+      <div class="row">
+        <%= image_tag @organization.pictures[0].url(:large), class:'img-rounded', alt:"Cinque Terre" if @organization.pictures.present? %>
+        <%= image_tag @organization.pictures[1].url(:large), class:'img-rounded', alt:"Cinque Terre" if @organization.pictures.present? %>
+      </div>
+
+      <div class="row">
+        <% if user_signed_in? %>
+          <% if !current_application.present? %>
+            <h2>Apply Here</h2>
+            <h4>Additional info</h4>
+            <p><%= @organization.additional %></p>
+            <%= simple_form_for [@organization, @org_membership_new] do |f| %>
+              <%= f.input :detail %>
+              <%= f.submit class:'btn btn-primary', value:'Request' %>
+            <% end  %>
+          <% elsif current_application.approved? %>
+            <%= link_to 'Leave organization', organization_org_membership_path(@organization), class:"btn btn-danger", method: :delete %>
+          <% end %>
+        <% end %>
+      </div>
+
+    </div>
+
+    <div class='col-lg-6' >
+      <div id="map" class='well well-lg' style='height: 400px;'></div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+<!--////////////////////////////////////////////////////////////////////////////  -->
+<script>
+  handler = Gmaps.build('Google');
+  handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+  markers = handler.addMarkers([
+    {
+      "lat": <%= @organization.latitude %>,
+      "lng": <%= @organization.longitude %>,
+      "infowindow": "<%= @organization.name %>"
+    },
+    // {
+    //   "lat": <%= @organization.latitude %> + 0.001,
+    //   "lng": <%= @organization.longitude %> + 0.001,
+    //   "infowindow": "<%= @organization.name %>"
+    // },
+
+  ]);
+  handler.bounds.extendWith(markers);
+  handler.fitMapToBounds();
+  handler.getMap().setZoom(20);
+  });
+</script>

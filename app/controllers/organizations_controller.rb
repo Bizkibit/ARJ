@@ -1,5 +1,5 @@
 class OrganizationsController < ApplicationController
-
+  before_action :authenticate_user!, except: [:index, :show]
   def index
     @organizations = Organization.approved_organizations
 
@@ -17,6 +17,7 @@ class OrganizationsController < ApplicationController
 
   def create
     @organization = Organization.new organization_params
+    @organization.user = current_user
     if @organization.save
       redirect_to organization_path(@organization)
     else
@@ -28,17 +29,18 @@ class OrganizationsController < ApplicationController
     @organization = Organization.find(params[:id])
     @review = Review.new
     @reviews = @organization.reviews.order(created_at: :desc)
-
-    @total = 0
-    if !@reviews.empty?
-        @reviews.each do |r|
-          @total+= r.rating.to_i
-        end
-        @total=@total/@reviews.count
-    end
-
     @new_application = Application.new
+    @current_application = @organization.applications.find_by(user_id: current_user)
+    @events = @organization.events
 
+
+    @org_rating = 0
+    if !@reviews.empty?
+      @reviews.each do |r|
+        @org_rating+= r.rating.to_i
+      end
+      @org_rating=@org_rating/@reviews.count
+    end
   end
 
   def edit

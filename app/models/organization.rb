@@ -13,6 +13,8 @@ class Organization < ApplicationRecord
   validates :address, presence: true
 
   scope :approved_organizations, lambda { where(aasm_state: 'approved') }
+  scope :search, lambda {|query| where(["name LIKE ?", "%#{query}%"]) }
+
 
   geocoded_by :address
   after_validation :geocode
@@ -44,6 +46,14 @@ class Organization < ApplicationRecord
 
   def approved_applications
     self.applications.where(aasm_state: 'approved')
+  end
+
+  def rejected_applications
+    self.applications.where(aasm_state: 'rejected')
+  end
+
+  def pending_applications
+    self.applications.where(aasm_state: 'pending')
   end
 
 

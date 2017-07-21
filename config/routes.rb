@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
-  resources :organizations, except: []
+  resources :organizations do
+    resources :events
+  end
 
   resources :users, except: [:destroy]
 
