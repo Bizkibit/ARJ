@@ -8,7 +8,7 @@ class CreateOrganizations < ActiveRecord::Migration[5.1]
       t.float :longitude
       t.float :latitude
       t.text :additional
-      t.string :picture
+      t.string :pictures
       t.string :aasm_state
       t.references :user, foreign_key: true, index: true
 

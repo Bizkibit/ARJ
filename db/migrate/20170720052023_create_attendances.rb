@@ -9,6 +9,6 @@ class CreateAttendances < ActiveRecord::Migration[5.1]
   end
 
   def down
-    create_table :attendances
+    drop_table :attendances
   end
 end

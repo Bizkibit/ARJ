@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(version: 20170720055709) do
     t.float "longitude"
     t.float "latitude"
     t.text "additional"
-    t.string "picture"
+    t.string "pictures"
     t.string "aasm_state"
     t.bigint "user_id"
     t.datetime "created_at", null: false

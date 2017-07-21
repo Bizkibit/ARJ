@@ -12,8 +12,17 @@ class Organization < ApplicationRecord
   validates :name, presence: true
   validates :address, presence: true
 
+  scope :approved_organizations, lambda { where(aasm_state: 'approved') }
+
   geocoded_by :address
   after_validation :geocode
+
+  # mount_uploaders :pictures, PictureUploader
+  # serialize :pictures, JSON
+
+  accepts_nested_attributes_for :events,
+                                reject_if: :all_blank,
+                                allow_destroy: true
 
   include AASM
 
@@ -29,11 +38,13 @@ class Organization < ApplicationRecord
       transitions from: :pending, to: :rejected
     end
 
+
   end
 
 
   def approved_applications
     self.applications.where(aasm_state: 'approved')
   end
+
 
 end
