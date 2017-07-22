@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   resources :organizations do
     resources :events
+    resources :applications, only: [:create, :destroy]
   end
 
   resources :users, except: [:destroy]
