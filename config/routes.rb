@@ -1,11 +1,19 @@
 Rails.application.routes.draw do
 
+  get 'events/new'
+
+  get 'events/edit'
+
   resources :organizations do
-    resources :events
+    resources :events, except: [:index]
     resources :applications, only: [:create, :destroy, :update] do
       patch '/:id', to: 'applications#update', as: :membership
     end
     resources :reviews, only: [:create, :destroy]
+  end
+
+  resources :events, only: [] do
+    resources :attendances, only: [:create, :destroy]
   end
 
   resources :users, except: [:destroy]
@@ -13,5 +21,6 @@ Rails.application.routes.draw do
   resources :sessions, only: [:create, :new] do
     delete :destroy, on: :collection
   end
+
 
 end

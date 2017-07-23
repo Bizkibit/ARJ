@@ -1,0 +1,13 @@
+<div class="container">
+  <p><%= @event.details %></p>
+
+  <div class="row">
+    <% if user_signed_in? %>
+      <% if @org_membership&.approved? %>
+        <h2>Apply</h2>
+        <%= link_to 'Join', event_attendances_path(@event), class:"btn btn-primary", method: :post %>
+        <%= link_to 'Cancel', event_attendance_path(@event), class:"btn btn-danger", method: :delete %>
+      <%end %>
+    <% end %>
+  </div>
+</div>
