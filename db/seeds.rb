@@ -51,6 +51,15 @@ ADRESSES.each do |address|
                       )
 end
 
+Organization.create(  name: "Codecore",
+                      address: "142 W Hastings St, Vancouver, BC V6B 1G8",
+                      website: 'http://codecore.ca',
+                      phone: "6046004975",
+                      additional: Faker::Lorem.paragraph + "\n" + "Please specify your availablity",
+                      user: User.last,
+                      aasm_state: "approved"
+                    )
+
 organizations = Organization.all
 approved_organizations = Organization.where(aasm_state: 'approved')
 
@@ -83,11 +92,13 @@ end
 # Admin
 User.create(  first_name: 'Farshid',
               last_name: 'HM',
+              dob: Time.now - 29.years,
               email: 'admin@admin.com',
               username: 'bizkibit',
               bio: 'Something Something',
               is_admin: true,
               password: 'pass123'
             )
+Organization.last.update(user: User.last)
 
 puts 'Done!'

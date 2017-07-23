@@ -11,6 +11,19 @@ class ApplicationsController < ApplicationController
     redirect_to organization_path(@organization)
   end
 
+  def update
+    @application = Application.find(params[:application_id])
+    if params[:id] == '1'
+      @application.approve
+      flash[:notice] = 'Membership approved'
+    else
+      @application.reject
+      flash[:notice] = 'Membership rejected'
+    end
+    @application.save
+    redirect_to organization_path(@application.organization)
+  end
+
   def destroy
     application = @organization.applications.find_by(user: current_user)
     if org_membership.destroy
