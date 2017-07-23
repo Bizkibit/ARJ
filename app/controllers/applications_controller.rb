@@ -26,8 +26,8 @@ class ApplicationsController < ApplicationController
 
   def destroy
     application = @organization.applications.find_by(user: current_user)
-    if org_membership.destroy
-      flash[:notice] = 'Request cancelled'
+    if application.destroy
+      flash[:notice] = 'Membership cancelled'
     else
       flash[:alert] = 'Error'
     end

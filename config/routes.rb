@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     resources :applications, only: [:create, :destroy, :update] do
       patch '/:id', to: 'applications#update', as: :membership
     end
+    resources :reviews, only: [:create, :destroy]
   end
 
   resources :users, except: [:destroy]

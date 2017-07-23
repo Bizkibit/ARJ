@@ -41,7 +41,7 @@ gem 'jquery-rails'
 gem 'chosen-rails'
 gem 'rack-cors'
 gem 'font-awesome-rails', github: 'bokmann/font-awesome-rails'
-gem 'simple_form'
+gem 'simple_form', github: 'plataformatec/simple_form'
 gem 'carrierwave', '~> 1.0'
 gem 'mini_magick'
 gem 'fog'
@@ -67,7 +67,7 @@ group :development do
   gem 'hirb'
   gem 'rails-erd'
   gem 'letter_opener'
-  
+
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'

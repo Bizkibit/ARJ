@@ -71,11 +71,11 @@
           <% if !@current_application.present? %>
             <h2>Apply Here</h2>
             <h4>Additional info</h4>
-            <p><%= @organization.additional %></p>
-            <%= simple_form_for [@organization, @new_application] do |f| %>
-              <%= f.input :detail %>
-              <%= f.submit class:'btn btn-primary', value:'Request' %>
-            <% end  %>
+              <p><%= @organization.additional %></p>
+              <%= simple_form_for [@organization, @new_application] do |f| %>
+                <%= f.input :detail %>
+                <%= f.submit class:'btn btn-primary', value:'Request' %>
+              <% end %>
           <% elsif @current_application.approved? %>
             <%= link_to 'Leave organization', organization_application_path(@organization), class:"btn btn-danger", method: :delete %>
           <% end %>

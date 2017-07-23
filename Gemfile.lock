@@ -13,6 +13,14 @@ GIT
       activerecord (>= 4.0.0)
 
 GIT
+  remote: https://github.com/plataformatec/simple_form.git
+  revision: f98b158a605f9a76dd0a4f60ae8549a3c5f863a5
+  specs:
+    simple_form (3.5.0)
+      actionpack (> 4, < 5.2)
+      activemodel (> 4, < 5.2)
+
+GIT
   remote: https://github.com/stympy/faker.git
   revision: 6148f01b4f2755358e4dd4928a438be9e55fb11b
   specs:
@@ -361,9 +369,6 @@ GEM
       tilt (>= 1.1, < 3)
     simple_calendar (2.2.6)
       rails (>= 3.0)
-    simple_form (3.5.0)
-      actionpack (> 4, < 5.2)
-      activemodel (> 4, < 5.2)
     sinatra (2.0.0)
       mustermann (~> 1.0)
       rack (~> 2.0)
@@ -441,7 +446,7 @@ DEPENDENCIES
   rails-erd
   sass-rails (~> 5.0)
   simple_calendar (~> 2.0)
-  simple_form
+  simple_form!
   spring
   spring-watcher-listen (~> 2.0.0)
   tzinfo-data
