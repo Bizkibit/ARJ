@@ -66,21 +66,21 @@
         <% end %>
           <%= link_to 'Add new Event', new_organization_event_path(@organization) if @organization.user == current_user %>
       </div>
-      <div class="row">
-        <% if user_signed_in? %>
-          <% if !@current_application.present? %>
-            <h2>Apply Here</h2>
-            <h4>Additional info</h4>
-              <p><%= @organization.additional %></p>
-              <%= simple_form_for [@organization, @new_application] do |f| %>
-                <%= f.input :detail %>
-                <%= f.submit class:'btn btn-primary', value:'Request' %>
-              <% end %>
-          <% elsif @current_application.approved? %>
-            <%= link_to 'Leave organization', organization_application_path(@organization), class:"btn btn-danger", method: :delete %>
-          <% end %>
-        <% end %>
-      </div>
+    </div>
+    <div class="col-lg-6">
+      <% if user_signed_in? %>
+      <% if !@current_application.present? %>
+      <h2>Apply Here</h2>
+      <h4>Additional info</h4>
+      <p><%= @organization.additional %></p>
+      <%= simple_form_for [@organization, @new_application] do |f| %>
+      <%= f.input :detail %>
+      <%= f.submit class:'btn btn-primary', value:'Request' %>
+      <% end %>
+      <% elsif @current_application.approved? %>
+      <%= link_to 'Leave organization', organization_application_path(@organization), class:"btn btn-danger", method: :delete %>
+      <% end %>
+      <% end %>
     </div>
   </div>
 
@@ -151,6 +151,88 @@
                 <td>
                   <%= link_to 'Approve', organization_application_membership_path(@organization, application, 1), method: :patch, class: 'btn btn-success btn-xs' %>
                   <%= link_to 'Reject',organization_application_membership_path(@organization, application, 0), method: :patch, class: 'btn btn-danger btn-xs' %>
+                </td>
+              </tr>
+            <% end  %>
+          <tbody>
+        </table>
+      </div>
+      <!-- approved memebrs list -->
+      <div class="col-lg-4">
+        <table class='table table-hover'>
+          <thead>
+            <tr>
+              <th>Approved</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @organization.approved_applications.each_with_index do |application, k| %>
+              <tr>
+                <td>
+                  <%=link_to application.user.full_name, user_path(application.user)%>
+                </td>
+                <td>
+                  <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#mypModal<%="#{k}" %>">
+                    Application
+                  </button>
+                  <div class="modal fade" id="mypModal<%="#{k}" %>" role="dialog">
+                    <div class="modal-dialog">
+                      <!-- Modal content-->
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h4 class="modal-title">Application</h4>
+                        </div>
+                        <div class="modal-body">
+                          <p><%= application.detail%></p>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            <% end  %>
+          <tbody>
+        </table>
+      </div>
+      <!-- Rejected memebrs list -->
+      <div class="col-lg-4">
+        <table class='table table-hover'>
+          <thead>
+            <tr>
+              <th>Rejected</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @organization.rejected_applications.each_with_index do |application, k| %>
+              <tr>
+                <td>
+                  <%=link_to application.user.full_name, user_path(application.user)%>
+                </td>
+                <td>
+                  <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#mypModal<%="#{k}" %>">
+                    Application
+                  </button>
+                  <div class="modal fade" id="mypModal<%="#{k}" %>" role="dialog">
+                    <div class="modal-dialog">
+                      <!-- Modal content-->
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h4 class="modal-title">Application</h4>
+                        </div>
+                        <div class="modal-body">
+                          <p><%= application.detail%></p>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </td>
               </tr>
             <% end  %>
