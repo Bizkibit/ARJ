@@ -13,7 +13,20 @@ class Ability
         application.organization.user != user
       end
 
-      
+      cannot [:create, :destroy], Application do |applicatin|
+        application.organization.user == user
+      end
+
+      can :update, Application do |application|
+        application.organization.user == user
+      end
+
+      cannot :update, Application do |application|
+        application.organization.user != user
+      end
+
+
+
     #   else
     #     can :read, :all
     #   end

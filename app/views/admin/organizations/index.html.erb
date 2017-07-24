@@ -1,0 +1,56 @@
+<div class="container">
+  <h2>Manage</h2>
+  <hr>
+  <div class="col-lg-4">
+    <table class='table table-hover'>
+      <thead>
+        <tr>
+          <th>Pending</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @pending.each do |member| %>
+          <tr>
+            <td>
+              <%=link_to member.name, organization_path(member)%>
+            </td>
+            <td>
+              <%= link_to 'Approve', cunt_path(member, 1), method: :patch, class: 'btn btn-success btn-xs'  %>
+            </td>
+            <td>
+              <%= link_to 'Reject', cunt_path(member, 0), method: :patch, class: 'btn btn-danger btn-xs' %>
+            </td>
+          </tr>
+        <% end  %>
+      <tbody>
+    </table>
+  </div>
+  <div class="col-lg-4">
+    <table class='table table-hover'>
+      <thead>
+        <tr>
+          <th>Approved</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @approved.each do |member| %>
+          <tr><td><%=link_to member.name, organization_path(member)%></td></tr>
+        <% end  %>
+      <tbody>
+    </table>
+  </div>
+  <div class="col-lg-4">
+    <table class='table table-hover'>
+      <thead>
+        <tr>
+          <th>Rejected</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @rejected.each do |member| %>
+          <tr><td><%=link_to member.name, organization_path(member)%></td></tr>
+        <% end  %>
+      <tbody>
+    </table>
+  </div>
+</div>
