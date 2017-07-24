@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
 
-  get 'events/new'
-
-  get 'events/edit'
+  root 'welcome#index'
 
   resources :organizations do
     resources :events, except: [:index]

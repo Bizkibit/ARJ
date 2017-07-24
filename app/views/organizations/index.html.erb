@@ -8,18 +8,14 @@
       </thead>
       <tbody>
         <% @organizations.each do |organization| %>
-          <%# if organization.event.spots - organization.members.count > 0 %>
             <tr><td><%=link_to "#{organization.name}", organization_path(organization) %></td></tr>
-          <%# else %>
-            <!-- <tr class="danger"><td><%=link_to "#{organization.name}", organization_path(organization) %></td></tr> -->
-          <%# end %>
         <% end %>
       </tbody>
     </table>
   </div>
-  <!-- <div class="col-lg-6 col-lg-offset-2">
+  <div class="col-lg-6 col-lg-offset-2">
     <div id="map" class='well well-lg' style='height: 400px;'></div>
-  </div> -->
+  </div>
 </div>
 
 <!-- script goes here -->

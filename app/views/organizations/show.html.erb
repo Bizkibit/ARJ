@@ -13,6 +13,9 @@
         <% else %>
           <p><strong>Membership status: </strong>Not applied yet</p>
         <% end %>
+        <% if @current_application&.approved? %>
+          <%= link_to 'Leave organization', organization_application_path(@organization), class:"btn btn-danger", method: :delete %>
+        <% end %>
       <% end %>
       <!-- Images section -->
       <div class="row">
@@ -77,8 +80,6 @@
       <%= f.input :detail %>
       <%= f.submit class:'btn btn-primary', value:'Request' %>
       <% end %>
-      <% elsif @current_application.approved? %>
-      <%= link_to 'Leave organization', organization_application_path(@organization), class:"btn btn-danger", method: :delete %>
       <% end %>
       <% end %>
     </div>
