@@ -19,8 +19,8 @@ class Organization < ApplicationRecord
   geocoded_by :address
   after_validation :geocode
 
-  # mount_uploaders :pictures, PictureUploader
-  # serialize :pictures, JSON
+  mount_uploaders :pictures, PictureUploader
+  serialize :pictures, JSON
 
   accepts_nested_attributes_for :events,
                                 reject_if: :all_blank,

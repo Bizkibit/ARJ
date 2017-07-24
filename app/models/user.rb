@@ -15,6 +15,7 @@ class User < ApplicationRecord
   validates :last_name, presence: true
   validates :username, uniqueness: true, presence: true
 
+
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
   validates :email, presence: true,
                     uniqueness: { case_sensitive: false },
@@ -22,6 +23,8 @@ class User < ApplicationRecord
 
   before_validation :downcase_email
 
+  mount_uploader :picture, PictureUploader
+  
   def full_name
     "#{first_name} #{last_name}"
   end

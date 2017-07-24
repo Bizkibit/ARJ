@@ -3,27 +3,30 @@
   <div class="row">
     <h1><%= @organization.name %></h1>
     <div class="col-lg-6">
-      <p><strong>Review: </strong><%= @org_rating%></p>
-      <p><strong>Address: </strong><%= @organization.address %></p>
-      <p><strong>Website: </strong><a href="http://<%= @organization.website%>"><%= @organization.website %></a></p>
-      <!-- Organiation appliacation status -->
-      <% if user_signed_in? %>
+      <div class="row">
+        <p><strong>Review: </strong><%= @org_rating%></p>
+        <p><strong>Address: </strong><%= @organization.address %></p>
+        <p><strong>Website: </strong><a href="http://<%= @organization.website%>"><%= @organization.website %></a></p>
+        <!-- Organiation appliacation status -->
+        <% if user_signed_in? %>
         <% if @current_application.present? %>
-          <p><strong>Membership status: </strong><%= @current_application.aasm_state %></p>
+        <p><strong>Membership status: </strong><%= @current_application.aasm_state %></p>
         <% else %>
-          <p><strong>Membership status: </strong>Not applied yet</p>
+        <p><strong>Membership status: </strong>Not applied yet</p>
         <% end %>
         <% if @current_application&.approved? %>
-          <%= link_to 'Leave organization', organization_application_path(@organization), class:"btn btn-danger", method: :delete %>
+        <%= link_to 'Leave organization', organization_application_path(@organization), class:"btn btn-danger", method: :delete %>
         <% end %>
-      <% end %>
+        <% end %>
+      </div>
       <!-- Images section -->
       <div class="row">
         <% if @organization.pictures.present? %>
-          <% @organization.pictures.each do |picture| %>
-            <%= image_tag picture.utl(:large), class: 'img-rounded', alt:"Cinque Terre" %>
-          <% end %>
+        <% @organization.pictures.each do |picture| %>
+        <%= image_tag picture.url(:medium), class: 'img-rounded', alt:"Cinque Terre" %>
         <% end %>
+        <% end %>
+        <p><%= link_to 'Add pictures', edit_organization_path(@organization) %></p>
       </div>
     </div>
     <!-- Map  -->

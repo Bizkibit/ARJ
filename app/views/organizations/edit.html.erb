@@ -1,2 +1,9 @@
-<h1>Organizations#edit</h1>
-<p>Find me in app/views/organizations/edit.html.erb</p>
+<div class="container">
+  <h1>Organization Edit</h1>
+  <%= simple_form_for @organization, html: { multipart: true } do |f| %>
+    <div class="form-group">
+      <%= f.file_field :pictures, multiple: true , class:'form-control'%>
+    </div>
+    <%= f.submit({class: "btn btn-primary"}) %>
+  <% end %>
+</div>

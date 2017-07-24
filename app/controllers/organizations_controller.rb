@@ -1,5 +1,6 @@
 class OrganizationsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
+  before_action :find_organization, only: [:show, :edit, :update]
   def index
     @organizations = Organization.approved_organizations
 
@@ -26,7 +27,6 @@ class OrganizationsController < ApplicationController
   end
 
   def show
-    @organization = Organization.find(params[:id])
     @review = Review.new
     @reviews = @organization.reviews.order(created_at: :desc)
     @new_application = Application.new
@@ -46,6 +46,14 @@ class OrganizationsController < ApplicationController
   def edit
   end
 
+  def update
+    if @organization.update organization_params
+      redirect_to organization_path(@organization)
+    else
+      render :edit
+    end
+  end
+
 
   def organization_params
     params.require(:organization).permit(:name, :website, :phone, :address, :additional, pictures: [],
@@ -56,4 +64,11 @@ class OrganizationsController < ApplicationController
                                                             :spots,
                                                             :details ] )
   end
+
+  private
+
+  def find_organization
+    @organization = Organization.find(params[:id])
+  end
+
 end

@@ -13,12 +13,11 @@
 
   <div class="col-lg-2 col-lg-offset-1">
     <div class="row">
-
       <div class="panel panel-default">
         <div class="panel-body">
           <div class="panel panel-default">
             <div class="panel-heading">
-              <%# image_tag @user.picture.url(:medium), class:'img-rounded', alt:"Cinque Terre", style: 'min-width:100%; min-height:100%; width:auto; height:auto;' if @user.picture.present? %>
+              <%= image_tag @user.picture.url(:medium), class:'img-rounded', alt:"Cinque Terre", style: 'min-width:100%; min-height:100%; width:auto; height:auto;' if @user.picture.present? %>
             </div>
           </div>
           <div class="panel panel-default">
@@ -28,7 +27,6 @@
           </div>
         </div>
       </div>
-
     </div>
     <div class="row">
       <div class="panel panel-default">
@@ -42,21 +40,19 @@
         </div>
       </div>
     </div>
-
   </div>
   <div class="col-lg-5">
     <div class="panel panel-default">
       <div class="panel-body">
-            <h2><%= @user.full_name %></h2>
-            <hr>
-            <p><strong>Bio: </strong> <%= @user.bio %></p>
-            <p><strong>Age: </strong><%= Time.now.year-@user.dob.year %></p>
-            <hr>
-            <p><strong>Member since: </strong> <%= @user.created_at.strftime("%b %Y") %></p>
+        <h2><%= @user.full_name %></h2>
+        <h4>@<%= @user.username %></h4>
+        <hr>
+        <p><strong>Bio: </strong> <%= @user.bio %></p>
+        <p><strong>Age: </strong><%= Time.now.year-@user.dob.year %></p>
+        <hr>
+        <p><strong>Member since: </strong> <%= @user.created_at.strftime("%b %Y") %></p>
       </div>
     </div>
-  </div>
-  <div class="col-lg-5 col-lg-offset-5">
     <div class="panel panel-default">
       <div class="panel-body">
         <p><strong>Upcoming Events</strong></p>
