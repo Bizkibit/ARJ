@@ -3,24 +3,34 @@ class ApplicationsController < ApplicationController
 
   def create
     @application = Application.new application_params
-    if @application.update(user: current_user, organization: @organization)
-      flash[:notice] = 'Your request has been sent'
+    # @application.update(user: current_user, organization: @organization)
+    @application.organization = @organization
+    if can? :create, @application
+      if @application.update(user: current_user)
+        flash[:notice] = 'Your request has been sent'
+      else
+        flash[:alert] = 'an Error has occured'
+      end
+      redirect_to organization_path(@organization)
     else
-      flash[:alert] = 'an Error has occured'
+      head :unauthorized
     end
-    redirect_to organization_path(@organization)
   end
 
   def update
     @application = Application.find(params[:application_id])
-    if params[:id] == '1'
-      @application.approve
-      flash[:notice] = 'Membership approved'
-    else
-      @application.reject
-      flash[:notice] = 'Membership rejected'
-    end
-    @application.save
+      if can? :update, @application
+        if params[:id] == '1'
+          @application.approve
+          flash[:notice] = 'Membership approved'
+        else
+          @application.reject
+          flash[:notice] = 'Membership rejected'
+        end
+        @application.save
+      else
+        head :unauthorized
+      end
     redirect_to organization_path(@application.organization)
   end
 

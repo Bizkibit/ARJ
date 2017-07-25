@@ -6,12 +6,16 @@ class ReviewsController < ApplicationController
     @review.organization = @organization
     @review.user = current_user
 
-    if @review.save
-      flash[:notice] = 'Review created'
-      redirect_to organization_path(@organization)
+    if !(can? :create, @review)
+      head :unauthorized
     else
-      flash[:alert] = 'Couldnt create review'
-      render 'organizations/show'
+      if @review.save
+        flash[:notice] = 'Review created'
+        redirect_to organization_path(@organization)
+      else
+        flash[:alert] = 'Couldnt create review'
+        render 'organizations/show'
+      end
     end
   end
 

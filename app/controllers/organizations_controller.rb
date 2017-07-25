@@ -1,11 +1,11 @@
 class OrganizationsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :find_organization, only: [:show, :edit, :update]
+
   def index
     @organizations = Organization.approved_organizations
-
-    @organization =  @organizations.near([49.2819605,-123.1086604], 1000)
-    @hash = Gmaps4rails.build_markers(@organization) do |organization, marker|
+    # @organization =  @organizations.near([49.2819605,-123.1086604], 1000)
+    @hash = Gmaps4rails.build_markers(@organizations) do |organization, marker|
       marker.lat organization.latitude
       marker.lng organization.longitude
       marker.infowindow organization.name
@@ -47,10 +47,14 @@ class OrganizationsController < ApplicationController
   end
 
   def update
-    if @organization.update organization_params
-      redirect_to organization_path(@organization)
+    if can? :update, @organization
+      if @organization.update organization_params
+        redirect_to organization_path(@organization)
+      else
+        render :edit
+      end
     else
-      render :edit
+      head :unauthorized
     end
   end
 

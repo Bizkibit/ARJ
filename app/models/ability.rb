@@ -13,7 +13,7 @@ class Ability
         application.organization.user != user
       end
 
-      cannot [:create, :destroy], Application do |applicatin|
+      cannot [:create, :destroy], Application do |application|
         application.organization.user == user
       end
 
@@ -25,6 +25,13 @@ class Ability
         application.organization.user != user
       end
 
+      cannot [:create, :destroy], Review do |review|
+        review.organization.user == user
+      end
+
+      can [:create, :destroy], Review do |review|
+        review.organization.applicants.include? user
+      end
 
 
     #   else

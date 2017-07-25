@@ -15,10 +15,11 @@
         <p><strong>Membership status: </strong>Not applied yet</p>
         <% end %>
         <% if @current_application&.approved? %>
-        <%= link_to 'Leave organization', organization_application_path(@organization), class:"btn btn-danger", method: :delete %>
+        <%= link_to 'Leave organization', organization_application_path(@organization), class:"btn btn-danger btn-sm", method: :delete %>
         <% end %>
         <% end %>
       </div>
+      <br>
       <!-- Images section -->
       <div class="row">
         <% if @organization.pictures.present? %>
@@ -112,7 +113,8 @@
     </div>
   </div>
   <!-- Org member managemenent section -->
-  <% if @organization.user == current_user %>
+  <%# if @organization.user == current_user %>
+  <% if can? :create, @organization %>
     <div class="row">
       <h2>Manage</h2>
       <hr>
