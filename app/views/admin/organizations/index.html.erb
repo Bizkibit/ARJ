@@ -8,20 +8,8 @@
           <th>Pending</th>
         </tr>
       </thead>
-      <tbody>
-        <% @pending.each do |member| %>
-          <tr>
-            <td>
-              <%=link_to member.name, organization_path(member)%>
-            </td>
-            <td>
-              <%= link_to 'Approve', cunt_path(member, 1), method: :patch, class: 'btn btn-success btn-xs'  %>
-            </td>
-            <td>
-              <%= link_to 'Reject', cunt_path(member, 0), method: :patch, class: 'btn btn-danger btn-xs' %>
-            </td>
-          </tr>
-        <% end  %>
+      <tbody id='pending_organizations'>
+        <%= render 'admin/organizations/pending_organizations', pending: @pending %>
       <tbody>
     </table>
   </div>
@@ -32,10 +20,8 @@
           <th>Approved</th>
         </tr>
       </thead>
-      <tbody>
-        <% @approved.each do |member| %>
-          <tr><td><%=link_to member.name, organization_path(member)%></td></tr>
-        <% end  %>
+      <tbody id='approved_organizations'>
+        <%= render 'admin/organizations/resolved_organizations', organizations: @approved %>
       <tbody>
     </table>
   </div>
@@ -46,10 +32,8 @@
           <th>Rejected</th>
         </tr>
       </thead>
-      <tbody>
-        <% @rejected.each do |member| %>
-          <tr><td><%=link_to member.name, organization_path(member)%></td></tr>
-        <% end  %>
+      <tbody id='rejected_organizations'>
+        <%= render 'admin/organizations/resolved_organizations', organizations: @rejected %>
       <tbody>
     </table>
   </div>

@@ -1,4 +1,4 @@
-class Admin::OrganizationsController < ApplicationController
+class Admin::OrganizationsController < Admin::BaseController
   def index
     @organizations = Organization.order(created_at: :desc)
     @pending = Organization.where(aasm_state: 'pending')
@@ -11,13 +11,16 @@ class Admin::OrganizationsController < ApplicationController
     @organization = Organization.find(params[:organization_id])
     if params[:id] == '1'
       @organization.approve
-      @organization.save
       flash[:notice] = 'Membership approved'
     else
       @organization.reject
-      @organization.save
       flash[:notice] = 'Membership rejected'
     end
-    redirect_to admin_panel_path
+
+    @organization.save
+    respond_to do |format|
+      format.html { redirect_to admin_panel_path }
+      format.js :update_success
+    end
   end
 end

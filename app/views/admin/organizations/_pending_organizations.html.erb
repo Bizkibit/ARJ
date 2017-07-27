@@ -1,0 +1,13 @@
+<% pending.each do |member| %>
+  <tr id="<%= dom_id(member) %>">
+    <td>
+      <%=link_to member.name, organization_path(member)%>
+    </td>
+    <td>
+      <%= link_to 'Approve', cunt_path(member, 1), remote: true, method: :patch, class: 'btn btn-success btn-xs'  %>
+    </td>
+    <td>
+      <%= link_to 'Reject', cunt_path(member, 0), remote: true, method: :patch, class: 'btn btn-danger btn-xs' %>
+    </td>
+  </tr>
+<% end  %>
