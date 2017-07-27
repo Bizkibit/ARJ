@@ -9,16 +9,16 @@
         </tr>
       </thead>
       <tbody>
-        <% @pending.each do |member| %>
+        <% @organizations.pending.each do |member| %>
           <tr>
             <td>
               <%=link_to member.name, organization_path(member)%>
             </td>
             <td>
-              <%= link_to 'Approve', cunt_path(member, 1), method: :patch, class: 'btn btn-success btn-xs'  %>
+              <%= link_to 'Approve', admin_organization_path(member, approve: true), method: :patch, class: 'btn btn-success btn-xs'  %>
             </td>
             <td>
-              <%= link_to 'Reject', cunt_path(member, 0), method: :patch, class: 'btn btn-danger btn-xs' %>
+              <%= link_to 'Reject', admin_organization_path(member), method: :patch, class: 'btn btn-danger btn-xs' %>
             </td>
           </tr>
         <% end  %>
@@ -33,7 +33,7 @@
         </tr>
       </thead>
       <tbody>
-        <% @approved.each do |member| %>
+        <% @organizations.approved.each do |member| %>
           <tr><td><%=link_to member.name, organization_path(member)%></td></tr>
         <% end  %>
       <tbody>
@@ -47,7 +47,7 @@
         </tr>
       </thead>
       <tbody>
-        <% @rejected.each do |member| %>
+        <% @organizations.rejected.each do |member| %>
           <tr><td><%=link_to member.name, organization_path(member)%></td></tr>
         <% end  %>
       <tbody>
