@@ -9,6 +9,10 @@ class Ability
         can :manage, :all
       end
 
+      can [:create, :edit], Organization do |organization|
+        organization.user == user
+      end
+
       can [:create, :destroy], Application do |application|
         application.organization.user != user
       end
