@@ -37,6 +37,8 @@ class Ability
         review.organization.applicants.include? user
       end
 
+      can [:create], Event do |event|
+
 
     #   else
     #     can :read, :all

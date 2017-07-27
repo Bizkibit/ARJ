@@ -21,14 +21,11 @@
       </div>
       <br>
       <!-- Images section -->
-      <div class="row">
-        <% if @organization.pictures.present? %>
-          <% @organization.pictures.each do |picture| %>
-            <%= image_tag picture.url(:medium), class: 'img-rounded', alt:"Cinque Terre" %>
-          <% end %>
-        <% end %>
+      <div class="row" id='images'>
+        <%= render 'organizations/pictures' , organization: @organization %>
+        <br>
         <% if can? :edit, @organization %>
-          <p><%= link_to 'Add pictures', edit_organization_path(@organization) %></p>
+          <p id='add_picture'><%= link_to 'Add pictures', edit_organization_path(@organization), remote: true %></p>
         <% end %>
       </div>
     </div>
@@ -73,7 +70,7 @@
             </div>
           <% end %>
         <% end %>
-          <%= link_to 'Add new Event', new_organization_event_path(@organization) if @organization.user == current_user %>
+          <%= link_to 'Add new Event', new_organization_event_path(@organization), remote: true if can? :create,   %>
       </div>
     </div>
     <div class="col-lg-6">

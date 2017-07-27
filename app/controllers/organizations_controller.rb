@@ -32,7 +32,7 @@ class OrganizationsController < ApplicationController
     @new_application = Application.new
     @current_application = @organization.applications.find_by(user_id: current_user)
     @events = @organization.events
-
+    @event = Event.new
 
     @org_rating = 0
     if !@reviews.empty?
@@ -48,8 +48,12 @@ class OrganizationsController < ApplicationController
 
   def update
     if can? :update, @organization
-      if @organization.update organization_params
-        redirect_to organization_path(@organization)
+      if @organization.update params.require(:organization).permit(pictures: [])
+        respond_to do |format|
+          format.html { redirect_to organization_path(@organization) }
+          format.js
+        end
+
       else
         render :edit
       end
