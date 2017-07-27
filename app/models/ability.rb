@@ -38,6 +38,8 @@ class Ability
       end
 
       can [:create], Event do |event|
+        event.organization.user == user
+      end
 
 
     #   else
