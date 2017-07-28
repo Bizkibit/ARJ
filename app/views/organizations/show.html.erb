@@ -48,30 +48,9 @@
     </div>
 <!-- Application Area -->
     <div class="col-lg-6" id='application_panel'>
-    <% if user_signed_in? %>
-      <% if !@current_application.present? %>
-        <div class="panel-group">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h4 class="panel-title">
-                <a data-toggle="collapse" href="#collapse1">Apply Here</a>
-              </h4>
-            </div>
-            <div id="collapse1" class="panel-collapse collapse">
-              <div class="panel-body">
-                  <h2>Apply Here</h2>
-                  <h4>Additional info</h4>
-                  <p><%= @organization.additional %></p>
-                  <%= simple_form_for [@organization, @new_application] do |f| %>
-                    <%= f.input :detail %>
-                    <%= f.submit class:'btn btn-primary', value:'Request' %>
-                  <% end %>
-              </div>
-            </div>
-          </div>
-        </div>
-      <% end %>
-    <% end %>
+      <%= render 'applications/new', {organization: @organization,
+                                      current_application: @current_application,
+                                      new_application: @new_application} %>
     </div>
   </div>
 
@@ -113,7 +92,7 @@
             </tr>
           </thead>
           <tbody id='pending_applications'>
-              <%= render 'organizations/pending_applications', organization: @organization %>
+              <%= render 'applications/pending_applications', organization: @organization %>
           <tbody>
         </table>
       </div>
@@ -126,7 +105,7 @@
             </tr>
           </thead>
           <tbody id='approved_applications'>
-              <%= render 'organizations/resolved_applications', organization: @organization.approved_applications %>
+              <%= render 'applications/resolved_applications', organization: @organization.approved_applications %>
           <tbody>
         </table>
       </div>
@@ -139,7 +118,7 @@
             </tr>
           </thead>
           <tbody id='rejected_applications' >
-              <%= render 'organizations/resolved_applications', organization: @organization.rejected_applications %>
+              <%= render 'applications/resolved_applications', organization: @organization.rejected_applications %>
           <tbody>
         </table>
       </div>

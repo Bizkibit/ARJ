@@ -3,15 +3,17 @@ class ApplicationsController < ApplicationController
 
   def create
     @application = Application.new application_params
-    # @application.update(user: current_user, organization: @organization)
     @application.organization = @organization
     if can? :create, @application
-      if @application.update(user: current_user)
-        flash[:notice] = 'Your request has been sent'
-      else
-        flash[:alert] = 'an Error has occured'
+      respond_to do |format|
+        if @application.update(user: current_user)
+          format.html { redirect_to organization_path(@organization), notice: 'Your request has been sent' }
+          format.js { render :create_successful }
+        else
+          format.html { redirect_to organization_path(@organization), alert: 'an Error has occured' }
+          format.js { render :create_successful }
+        end
       end
-      redirect_to organization_path(@organization)
     else
       head :unauthorized
     end

@@ -1,4 +1,5 @@
-$('#<%= j dom_id(@application)%> .btn').remove()
+$('#<%= j dom_id(@application)%> .btn.btn-success').remove()
+$('#<%= j dom_id(@application)%> .btn.btn-danger').remove()
 
 if ("<%= @application.rejected? %>" === "true") {
   $("#<%= j dom_id(@application)%>").prependTo($("#rejected_applications")).hide().fadeIn()
