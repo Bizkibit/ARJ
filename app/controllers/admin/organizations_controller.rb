@@ -14,10 +14,13 @@ class Admin::OrganizationsController < Admin::BaseController
       flash[:notice] = 'Membership rejected'
     end
 
-    if @organization.save
-      respond_to do |format|
+    respond_to do |format|
+      if @organization.save
         format.html { redirect_to admin_organizations_path }
-        format.js { update_success }
+        format.js { render :update_success }
+      else
+        format.html { redirect_to admin_organizations_path }
+        format.js { render :update_success }
       end
     end
   end

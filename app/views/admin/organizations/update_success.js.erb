@@ -1,1 +1,11 @@
-$('<%= j dom_id(@organization)%>').remove()
+// debugger
+
+// $('#<%= j dom_id(@organization)%>').fadeOut()
+$('#<%= j dom_id(@organization)%> .btn').remove()
+
+if ("<%= @organization.rejected? %>" === "true") {
+  $("#<%= j dom_id(@organization)%>").prependTo($("#rejected_organizations")).hide().fadeIn()
+} else {
+  $("#<%= j dom_id(@organization)%>").prependTo($("#approved_organizations")).hide().fadeIn()
+}
+
