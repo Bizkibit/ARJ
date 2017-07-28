@@ -27,11 +27,16 @@ class ApplicationsController < ApplicationController
           @application.reject
           flash[:notice] = 'Membership rejected'
         end
-        @application.save
+        respond_to do |format|
+          if @application.save
+            format.html { redirect_to organization_path(@application.organization)}
+            format.js { render 'applications/update_succ' }
+          else
+          end
+        end
       else
         head :unauthorized
       end
-    redirect_to organization_path(@application.organization)
   end
 
   def destroy

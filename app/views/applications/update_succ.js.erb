@@ -1,0 +1,8 @@
+debugger
+$('#<%= j dom_id(@application)%> .btn').remove()
+
+if ("<%= @application.rejected? %>" === "true") {
+  $("#<%= j dom_id(@application)%>").prependTo($("#rejected_applications")).hide().fadeIn()
+} else {
+  $("#<%= j dom_id(@application)%>").prependTo($("#approved_applications")).hide().fadeIn()
+}

@@ -43,7 +43,7 @@
         <div id='event'>
           <%= render 'events/events', events: @events %>
         </div>
-          <%= link_to 'Add new Event', new_organization_event_path(@organization), id:'add_event', remote: true if can? :create, @organization %>
+        <%= render 'events/add_event', organization: @organization %>
       </div>
     </div>
     <div class="col-lg-6">
@@ -99,9 +99,7 @@
             </tr>
           </thead>
           <tbody id='pending_applications'>
-            <% @organization.pending_applications.each_with_index do |application, k| %>
-              <%= render 'organizations/pending_applications', application: application, k: k %>
-            <% end  %>
+              <%= render 'organizations/pending_applications', organization: @organization %>
           <tbody>
         </table>
       </div>
@@ -113,10 +111,8 @@
               <th>Approved</th>
             </tr>
           </thead>
-          <tbody>
-            <% @organization.approved_applications.each_with_index do |application, k| %>
-              <%= render 'organizations/resolved_applications', application: application, k: k %>
-            <% end  %>
+          <tbody id='approved_applications'>
+              <%= render 'organizations/resolved_applications', organization: @organization.approved_applications %>
           <tbody>
         </table>
       </div>
@@ -128,10 +124,8 @@
               <th>Rejected</th>
             </tr>
           </thead>
-          <tbody>
-            <% @organization.rejected_applications.each_with_index do |application, k| %>
-              <%= render 'organizations/resolved_applications', application: application, k: k %>
-            <% end  %>
+          <tbody id='rejected_applications' >
+              <%= render 'organizations/resolved_applications', organization: @organization.rejected_applications %>
           <tbody>
         </table>
       </div>
