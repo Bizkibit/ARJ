@@ -1,0 +1,3 @@
+document.querySelector('#images').innerHTML = '<%= j render "pictures", organization: @organization  %>'
+debugger
+$('#images').append('<%= j render "add_picture", organization: @organization %>')

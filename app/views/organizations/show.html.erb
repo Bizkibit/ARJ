@@ -24,9 +24,9 @@
       <div class="row" id='images'>
         <%= render 'organizations/pictures' , organization: @organization %>
         <br>
-        <% if can? :edit, @organization %>
-          <p id='add_picture'><%= link_to 'Add pictures', edit_organization_path(@organization), remote: true %></p>
-        <% end %>
+      <% if can? :edit, @organization %>
+        <%= render 'organizations/add_picture', organization: @organization %>
+      <% end %>
       </div>
     </div>
     <!-- Map  -->

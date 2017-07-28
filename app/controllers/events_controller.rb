@@ -11,7 +11,7 @@ class EventsController < ApplicationController
     respond_to do |format|
       if @event.save
         format.html {redirect_to organization_path(@organization), notice: 'Event created'}
-        format.js {  }
+        format.js 
       else
         flash[:alert] = 'Event creation Error'
         render :new

@@ -48,14 +48,13 @@ class OrganizationsController < ApplicationController
 
   def update
     if can? :update, @organization
-      if @organization.update params.require(:organization).permit(pictures: [])
-        respond_to do |format|
-          format.html { redirect_to organization_path(@organization) }
-          format.js
+      respond_to do |format|
+        if @organization.update params.require(:organization).permit(pictures: [])
+            format.html { redirect_to organization_path(@organization) }
+            format.js { render :update_successful }
+        else
+          render :edit
         end
-
-      else
-        render :edit
       end
     else
       head :unauthorized
