@@ -1,0 +1,3 @@
+document.querySelector('#event').outerHTML='<%= j render "events", events: @organization.events %>'
+$('#new_event').remove()
+$('#add_event').show()
