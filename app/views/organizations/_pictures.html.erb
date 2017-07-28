@@ -1,0 +1,3 @@
+<% organization.pictures&.each do |picture| %>
+  <%= image_tag picture.url(:medium), class: 'img-rounded', alt:"Cinque Terre" %>
+<% end %>

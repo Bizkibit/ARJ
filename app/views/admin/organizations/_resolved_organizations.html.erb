@@ -1,0 +1,3 @@
+<% organizations.each do |member| %>
+  <tr id="<%= dom_id(member) %>" ><td><%=link_to member.name, organization_path(member)%></td></tr>
+<% end %>

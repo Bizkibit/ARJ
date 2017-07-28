@@ -1,0 +1,13 @@
+<% pending.each do |member| %>
+  <tr>
+    <td>
+      <%=link_to member.name, organization_path(member)%>
+    </td>
+    <td>
+      <%= link_to 'Approve', admin_organization_path(member, approve: true), method: :patch, class: 'btn btn-success btn-xs'  %>
+    </td>
+    <td>
+      <%= link_to 'Reject', admin_organization_path(member), method: :patch, class: 'btn btn-danger btn-xs' %>
+    </td>
+  </tr>
+<% end  %>

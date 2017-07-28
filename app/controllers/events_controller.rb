@@ -8,12 +8,14 @@ class EventsController < ApplicationController
   def create
     @event = Event.new event_params
     @event.organization = @organization
-    if @event.save
-      flash[:notice] = 'Event created!'
-      redirect_to organization_path(@organization)
-    else
-      flash[:alert] = 'Event creation Error'
-      render :new
+    respond_to do |format|
+      if @event.save
+        format.html {redirect_to organization_path(@organization), notice: 'Event created'}
+        format.js {  }
+      else
+        flash[:alert] = 'Event creation Error'
+        render :new
+      end
     end
   end
 

@@ -8,14 +8,17 @@ class Admin::OrganizationsController < Admin::BaseController
 
     if params[:approve]
       @organization.approve
-      @organization.save
       flash[:notice] = 'Membership approved'
     else
       @organization.reject
-      @organization.save
       flash[:notice] = 'Membership rejected'
     end
 
-    redirect_to admin_organizations_path
+    if @organization.save
+      respond_to do |format|
+        format.html { redirect_to admin_organizations_path }
+        format.js { update_success }
+      end
+    end
   end
 end

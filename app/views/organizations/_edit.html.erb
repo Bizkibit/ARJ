@@ -1,0 +1,7 @@
+<br>
+<%= simple_form_for @organization, html: { multipart: true } do |f| %>
+  <div class="form-group">
+    <%= f.file_field :pictures, multiple: true , class:'form-control'%>
+  </div>
+  <%= f.submit({class: "btn btn-primary"}) %>
+<% end %>
