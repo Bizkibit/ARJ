@@ -10,9 +10,9 @@
         <!-- Organiation appliacation status -->
         <% if user_signed_in? %>
         <% if @current_application.present? %>
-        <p><strong>Membership status: </strong><%= @current_application.aasm_state %></p>
+        <p><strong id='status'>Membership status: </strong><%= @current_application.aasm_state %></p>
         <% else %>
-        <p><strong>Membership status: </strong>Not applied yet</p>
+        <p><strong id='status'>Membership status: </strong>Not applied yet</p>
         <% end %>
         <% if @current_application&.approved? %>
         <%= link_to 'Leave organization', organization_application_path(@organization), class:"btn btn-danger btn-sm", method: :delete %>

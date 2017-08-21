@@ -22,14 +22,23 @@ class User < ApplicationRecord
                     format: VALID_EMAIL_REGEX
 
   before_validation :downcase_email
+  before_create :generate_api_key
+
 
   mount_uploader :picture, PictureUploader
-  
+
   def full_name
     "#{first_name} #{last_name}"
   end
 
   private
+
+  def generate_api_key
+    loop do
+      self.api_key = SecureRandom.hex(32)
+      break unless User.exists?(api_key: api_key)
+    end
+  end
 
   def downcase_email
     self.email&.downcase!
