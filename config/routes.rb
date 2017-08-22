@@ -23,6 +23,13 @@ Rails.application.routes.draw do
   # get('admin/organizations', {to: 'admin/organizations#index', as: :admin_panel})
   # patch('/admin/organizations/:organization_id/', {to: 'admin/organizations#update', as: :cunt})
 
+  # Api backend routs:
+
+  namespace :api , defaults: {format: :json} do
+    namespace :v1 do
+      resources :users, only: [:show]
+    end
+  end
 
   namespace :admin do
     resources :organizations,  only: [:index, :update]

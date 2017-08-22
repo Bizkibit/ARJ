@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class UsersController < Api::ApplicationController 
   before_action :find_user, except: [:new, :create]
 
   def new
@@ -30,7 +30,6 @@ class UsersController < ApplicationController
       render :edit
     end
   end
-
 
   private
 
