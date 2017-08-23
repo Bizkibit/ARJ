@@ -56,5 +56,4 @@ class Organization < ApplicationRecord
     self.applications.where(aasm_state: 'pending')
   end
 
-
 end

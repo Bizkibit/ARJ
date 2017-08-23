@@ -13,5 +13,5 @@ class Api::ApplicationController < ApplicationController
   def authenticate_user!
     head :unauthorized unless current_user.present?
   end
-  
+
 end

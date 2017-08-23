@@ -3,7 +3,7 @@ class OrganizationsController < ApplicationController
   before_action :find_organization, only: [:show, :edit, :update]
 
   def index
-    @organizations = Organization.approved_organizations
+    @organizations = Organization.approved
     # @organization =  @organizations.near([49.2819605,-123.1086604], 1000)
     @hash = Gmaps4rails.build_markers(@organizations) do |organization, marker|
       marker.lat organization.latitude

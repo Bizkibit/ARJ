@@ -5,8 +5,11 @@ class Api::V1::UsersController < Api::ApplicationController
 
 
   def show
-    # render json: current_user
     render json: @user
+  end
+
+  def index
+    render json: User.all
   end
 
   private
