@@ -31,7 +31,7 @@ Rails.application.routes.draw do
       resources :organizations, only: [:show, :index]
     end
   end
-  # test
+
   namespace :admin do
     resources :organizations,  only: [:index, :update]
   end
