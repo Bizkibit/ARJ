@@ -20,10 +20,7 @@ Rails.application.routes.draw do
     delete :destroy, on: :collection
   end
 
-  # get('admin/organizations', {to: 'admin/organizations#index', as: :admin_panel})
-  # patch('/admin/organizations/:organization_id/', {to: 'admin/organizations#update', as: :cunt})
-
-  # Api backend routs:
+  # Api backend routes:
 
   namespace :api , defaults: {format: :json} do
     namespace :v1 do

@@ -15,7 +15,6 @@ class Organization < ApplicationRecord
   scope :approved_organizations, lambda { where(aasm_state: 'approved') }
   scope :search, lambda {|query| where(["name LIKE ?", "%#{query}%"]) }
 
-
   geocoded_by :address
   after_validation :geocode
 

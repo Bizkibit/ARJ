@@ -9,7 +9,7 @@ class OrganizationsController < ApplicationController
       marker.lat organization.latitude
       marker.lng organization.longitude
       marker.infowindow organization.name
-     end
+    end
   end
 
   def new
@@ -62,17 +62,18 @@ class OrganizationsController < ApplicationController
   end
 
 
-  def organization_params
-    params.require(:organization).permit(:name, :website, :phone, :address, :additional, pictures: [],
-                                          events_attributes: [:start_date,
-                                                            :end_date,
-                                                            :start_time,
-                                                            :end_time,
-                                                            :spots,
-                                                            :details ] )
-  end
 
   private
+
+  def organization_params
+    params.require(:organization).permit(:name, :website, :phone, :address, :additional, pictures: [],
+      events_attributes: [:start_date,
+        :end_date,
+        :start_time,
+        :end_time,
+        :spots,
+        :details ] )
+      end
 
   def find_organization
     @organization = Organization.find(params[:id])
