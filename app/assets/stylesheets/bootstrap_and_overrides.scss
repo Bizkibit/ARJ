@@ -4,4 +4,15 @@
 #project-logo-text  {
   font-family: Snell Roundhand;
   font-weight: 900;
+};
+
+#navbar  {
+  background-color: transparent;
+  border: none;
+  margin-bottom: 0;
+}
+
+#navbar-right>li>a {
+  padding-right: 15px;
+  padding-left: 15px;
 }
