@@ -8,7 +8,7 @@ class Api::V1::OrganizationsController < Api::ApplicationController
   end
 
   def show
-
+    render json:@organization
   end
 
   private

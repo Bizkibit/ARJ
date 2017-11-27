@@ -6,5 +6,4 @@ class OrganizationSerializer < ActiveModel::Serializer
   has_many :events, dependent: :destroy
   has_many :reviews, dependent: :destroy
 
-
 end
